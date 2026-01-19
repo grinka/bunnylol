@@ -115,7 +115,7 @@ Each command is represented by JSON object with the following structure:
 {
     "commandKey": {
         "name": "Command Name",
-        "pfefix": "optionalPrefix", // optional
+        "prefix": "optionalPrefix", // optional
         "searchUrl": "https://example.com/search?q={query}", // optional
         "url": "https://example.com/search?q={query}",
         "description": "Description of the command" // optional

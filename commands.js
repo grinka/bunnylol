@@ -5,6 +5,11 @@ const commands = {
         url: 'https://www.google.com/',
         searchUrl: 'https://www.google.com/search?q=%s'
     },
+    ld: {
+        name: "LaunchDarkly",
+        description: "LaunchDarkly Feature Flags Dashboard",
+        url: "https://app.launchdarkly.com/projects/aya/flags?selected-env=integration&env=develop&env=integration&env=production&env=sandbox",
+    },
     aya: {
         name: "Aya Pulse Page",
         url: "https://thepulse.ayahealthcare.com/#"
