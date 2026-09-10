@@ -1,0 +1,8 @@
+{
+  "name": "BunnyLOL",
+  "description": "BunnyLOL Chrome extension and settings manager for smart bookmarks, search redirects, and conditional routing without hosting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "bunnylol",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "BunnyLOL smart bookmarks and search redirects",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "node -e \"console.log('Build complete')\"",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "jszip": "^3.10.2"
+  }
+}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BunnyLOL Quick Search</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            width: 380px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #F8FAFC;
+            color: #0F172A;
+            padding: 14px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+        }
+        .title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E1B4B;
+            letter-spacing: -0.01em;
+        }
+        .settings-btn {
+            background: transparent;
+            border: 1px solid #E2E8F0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #475569;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s ease;
+        }
+        .settings-btn:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: #CBD5E1;
+        }
+        .search-box {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px 12px;
+            padding-right: 48px;
+            font-size: 14px;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 8px;
+            outline: none;
+            background: #FFFFFF;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .search-input:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+        .go-btn {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            bottom: 4px;
+            padding: 0 12px;
+            background: #4F46E5;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+        .go-btn:hover {
+            background: #4338CA;
+        }
+        .preview-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+            display: none;
+        }
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #64748B;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .preview-rule-badge {
+            background: #EFF6FF;
+            color: #2563EB;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .preview-url {
+            font-size: 12px;
+            color: #2563EB;
+            word-break: break-all;
+            line-height: 1.4;
+            max-height: 48px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .shortcuts-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #64748B;
+            margin-bottom: 6px;
+        }
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+        .shortcut-chip {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s ease;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .shortcut-chip:hover {
+            border-color: #818CF8;
+            background: #EEF2FF;
+            color: #3730A3;
+        }
+        .shortcut-key {
+            font-weight: 700;
+            color: #4F46E5;
+            margin-right: 4px;
+        }
+        .footer-note {
+            margin-top: 10px;
+            font-size: 11px;
+            color: #94A3B8;
+            text-align: center;
+        }
+        kbd {
+            background: #E2E8F0;
+            color: #334155;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-group">
+            <img src="assets/icon48.png" alt="BunnyLOL" class="logo-icon">
+            <span class="title">BunnyLOL</span>
+        </div>
+        <button id="openSettingsBtn" class="settings-btn" title="Open Settings & Rules Manager">
+            ⚙️ Manage Rules
+        </button>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="queryInput" class="search-input" placeholder="Type command (e.g. nova prod)..." autofocus autocomplete="off">
+        <button id="goBtn" class="go-btn">Go ↵</button>
+    </div>
+
+    <div id="previewCard" class="preview-card">
+        <div class="preview-header">
+            <span id="previewCmdName">Command</span>
+            <span id="previewBadge" class="preview-rule-badge">Direct Match</span>
+        </div>
+        <div id="previewUrl" class="preview-url"></div>
+    </div>
+
+    <div class="shortcuts-title">Quick Shortcuts</div>
+    <div id="shortcutsList" class="shortcuts-grid"></div>
+
+    <div class="footer-note">
+        💡 Tip: In Chrome URL bar, type <kbd>b</kbd> then <kbd>Space</kbd> or <kbd>Tab</kbd>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+</body>
+</html>

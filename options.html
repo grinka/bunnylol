@@ -3,36 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BunnyLOL - Smart Search & Rules Manager</title>
-    <meta name="description" content="Quick and easy command-line style smart bookmarks and search redirects without any hosting.">
-    <meta property="og:title" content="BunnyLOL - Smart Search & Rules Manager">
-    <meta property="og:description" content="Quick and easy command-line style smart bookmarks and search redirects without any hosting.">
-    <link rel="icon" type="image/png" href="assets/icon48.png">
+    <title>BunnyLOL Settings & Metadata Rules</title>
     <link rel="stylesheet" href="assets/main.css">
 </head>
 <body>
-    <div id="redirectOverlay" style="display: none; position: fixed; inset: 0; background: #FFFFFF; z-index: 9999; flex-direction: column; align-items: center; justify-content: center; font-family: sans-serif;">
-        <div style="font-size: 32px; margin-bottom: 12px;">🐰</div>
-        <div style="font-size: 16px; font-weight: 600; color: #1E1B4B; margin-bottom: 6px;">Redirecting via BunnyLOL...</div>
-        <div id="redirectTargetDisplay" style="font-size: 13px; color: #64748B; font-family: monospace; max-width: 80%; word-break: break-all; text-align: center;"></div>
-    </div>
-
-    <div class="container" id="appContainer">
+    <div class="container">
         <!-- Header -->
-        <header class="app-header" id="appHeader">
-            <div class="brand-wrapper" id="brandWrapper">
-                <img src="assets/icon48.png" alt="BunnyLOL Logo" class="brand-icon" id="brandLogo">
-                <div id="brandText">
-                    <div class="brand-title" id="brandTitle">
+        <header class="app-header">
+            <div class="brand-wrapper">
+                <img src="assets/icon48.png" alt="BunnyLOL Logo" class="brand-icon">
+                <div>
+                    <div class="brand-title">
                         BunnyLOL
-                        <span id="envBadge" class="env-badge">Ready for Chrome</span>
+                        <span id="envBadge" class="env-badge">Chrome Extension Mode</span>
                     </div>
-                    <div class="brand-subtitle" id="brandSubtitle">
+                    <div class="brand-subtitle">
                         Smart Bookmarks, Search Redirects & Conditional Rules
                     </div>
                 </div>
             </div>
-            <div class="header-actions" id="headerActions">
+            <div class="header-actions">
                 <button id="addCommandBtn" class="btn btn-primary">
                     ➕ Add Command
                 </button>
@@ -52,49 +42,49 @@
         <input type="file" id="fileImportInput" accept=".json" style="display: none;">
 
         <!-- Chrome Extension Omnibox Guide Banner -->
-        <div class="extension-banner" id="extensionBanner">
-            <div class="banner-content" id="bannerContent">
-                <div class="banner-icon" id="bannerIcon">🧩</div>
-                <div id="bannerText">
-                    <div class="banner-title" id="bannerTitle">Chrome Extension Ready: Zero Hosting Required!</div>
-                    <div class="banner-desc" id="bannerDesc">
-                        Run BunnyLOL entirely inside Chrome. Type <strong style="color: #1E1B4B; background: #C7D2FE; padding: 1px 6px; border-radius: 4px;">b &lt;space&gt;</strong> followed by any command directly in Chrome's address bar.
+        <div class="extension-banner">
+            <div class="banner-content">
+                <div class="banner-icon">💡</div>
+                <div>
+                    <div class="banner-title">Chrome Omnibox Ready: No Web Hosting Needed</div>
+                    <div class="banner-desc">
+                        Type <strong style="color: #1E1B4B; background: #C7D2FE; padding: 1px 6px; border-radius: 4px;">b &lt;space&gt;</strong> followed by any command directly in your Chrome URL bar!
                     </div>
                 </div>
             </div>
-            <div style="display: flex; gap: 8px;" id="bannerActions">
+            <div style="display: flex; gap: 8px;">
                 <button id="setupGuideBtn" class="btn btn-secondary btn-sm">Setup Guide</button>
-                <button id="downloadZipBtn" class="btn btn-primary btn-sm">Download Extension (.zip)</button>
+                <button id="downloadZipBtn" class="btn btn-primary btn-sm">Download Extension .ZIP</button>
             </div>
         </div>
 
         <!-- Interactive Command & Rule Simulator -->
-        <section class="simulator-card" id="simulatorSection">
-            <div class="simulator-header" id="simulatorHeader">
-                <div class="simulator-title" id="simulatorTitle">
-                    <span>⚡ Live Command & Rule Simulator</span>
+        <section class="simulator-card">
+            <div class="simulator-header">
+                <div class="simulator-title">
+                    <span>⚡ Interactive Command & Rule Simulator</span>
                 </div>
-                <div class="simulator-hint" id="simulatorHint">
+                <div class="simulator-hint">
                     Type a query to preview rule matching & target URL
                 </div>
             </div>
-            <div class="simulator-input-wrap" id="simulatorInputWrap">
+            <div class="simulator-input-wrap">
                 <input type="text" id="simInput" class="simulator-input" placeholder="e.g. nova prod, ticket 4512, test-command 15, g deep learning" autocomplete="off">
             </div>
             <div id="simResult" class="simulator-result">
-                <div class="sim-row" id="simRowCmd">
+                <div class="sim-row">
                     <span class="sim-label">Matched Command:</span>
                     <span class="sim-value"><strong id="simCmdName"></strong> (<code id="simCmdKey"></code>)</span>
                 </div>
-                <div class="sim-row" id="simRowParams">
+                <div class="sim-row">
                     <span class="sim-label">Parsed Parameters:</span>
                     <span class="sim-value" id="simParams"></span>
                 </div>
-                <div class="sim-row" id="simRowRule">
+                <div class="sim-row">
                     <span class="sim-label">Rule Evaluation:</span>
                     <span class="sim-value" id="simRule"></span>
                 </div>
-                <div class="sim-row" id="simRowUrl">
+                <div class="sim-row">
                     <span class="sim-label">Target URL:</span>
                     <span class="sim-value" style="display: flex; align-items: center; gap: 8px; flex: 1;">
                         <span id="simUrl" style="color: var(--primary); font-weight: 600;"></span>
@@ -107,14 +97,14 @@
         </section>
 
         <!-- Command & Rules Management -->
-        <section id="managementSection">
-            <div class="mgmt-header" id="mgmtHeader">
-                <div class="mgmt-title-group" id="mgmtTitleGroup">
-                    <h2 class="mgmt-title" id="mgmtTitle">Registered Commands & Metadata Rules</h2>
+        <section>
+            <div class="mgmt-header">
+                <div class="mgmt-title-group">
+                    <h2 class="mgmt-title">Registered Commands & Rules</h2>
                     <span id="commandsCount" class="mgmt-count">0</span>
                 </div>
-                <div class="filter-bar" id="filterBar">
-                    <div class="search-input-wrap" id="searchInputWrap">
+                <div class="filter-bar">
+                    <div class="search-input-wrap">
                         <span class="filter-icon">🔍</span>
                         <input type="text" id="filterInput" class="filter-input" placeholder="Filter commands or rules...">
                     </div>
@@ -129,13 +119,13 @@
 
     <!-- Modal for Adding / Editing Command and Rules -->
     <div id="cmdModal" class="modal-overlay">
-        <div class="modal-dialog" id="modalDialog">
-            <div class="modal-header" id="modalHeader">
+        <div class="modal-dialog">
+            <div class="modal-header">
                 <h3 id="modalTitle" class="modal-title">Add New Command</h3>
                 <button type="button" id="modalCloseBtn" class="modal-close-btn">&times;</button>
             </div>
             <form id="cmdForm">
-                <div class="modal-body" id="modalBody">
+                <div class="modal-body">
                     <div class="form-row-2">
                         <div class="form-group">
                             <label class="form-label" for="formKey">Command Key *</label>
@@ -160,7 +150,7 @@
                             <div class="form-hint">Triggers if query starts with this prefix</div>
                         </div>
                         <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: 10px;">
-                            <label class="checkbox-label" for="formDefault">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="formDefault">
                                 <span>Set as Default Fallback Command</span>
                             </label>
@@ -180,9 +170,9 @@
                     </div>
 
                     <!-- Metadata Rules Section -->
-                    <div class="modal-rules-box" id="modalRulesBox">
-                        <div class="modal-rules-header" id="modalRulesHeader">
-                            <span class="modal-rules-title" id="modalRulesTitle">Conditional Metadata Rules</span>
+                    <div class="modal-rules-box">
+                        <div class="modal-rules-header">
+                            <span class="modal-rules-title">Conditional Metadata Rules</span>
                             <button type="button" id="addRuleBtn" class="btn btn-secondary btn-sm">
                                 ➕ Add Rule
                             </button>
@@ -208,9 +198,9 @@
                     </div>
                 </div>
 
-                <div class="modal-footer" id="modalFooter">
+                <div class="modal-footer">
                     <button type="button" id="modalCancelBtn" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" id="modalSubmitBtn" class="btn btn-primary">Save Command & Rules</button>
+                    <button type="submit" class="btn btn-primary">Save Command & Rules</button>
                 </div>
             </form>
         </div>
@@ -218,16 +208,16 @@
 
     <!-- Chrome Setup Guide Modal -->
     <div id="guideModal" class="modal-overlay">
-        <div class="modal-dialog" id="guideDialog" style="max-width: 580px;">
-            <div class="modal-header" id="guideHeader">
-                <h3 class="modal-title" id="guideTitle">Install BunnyLOL in Google Chrome (15 Seconds)</h3>
+        <div class="modal-dialog" style="max-width: 580px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Install BunnyLOL in Google Chrome (15 Seconds)</h3>
                 <button type="button" id="guideCloseBtn" class="modal-close-btn">&times;</button>
             </div>
-            <div class="modal-body" id="guideBody">
+            <div class="modal-body">
                 <ol style="padding-left: 20px; display: flex; flex-direction: column; gap: 14px; font-size: 14px; color: var(--text-primary);">
                     <li>
                         <strong>Download the Extension package:</strong><br>
-                        Click the <span class="badge badge-indigo">Download Extension (.zip)</span> button and extract the contents to a folder on your computer.
+                        Click the <span class="badge badge-indigo">Download Extension .ZIP</span> button and extract the contents to a folder on your computer.
                     </li>
                     <li>
                         <strong>Open Chrome Extensions:</strong><br>
@@ -247,7 +237,7 @@
                     </li>
                 </ol>
             </div>
-            <div class="modal-footer" id="guideFooter">
+            <div class="modal-footer">
                 <button type="button" id="guideOkBtn" class="btn btn-primary">Got it!</button>
             </div>
         </div>

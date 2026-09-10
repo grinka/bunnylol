@@ -99,3 +99,12 @@ const commands = {
     }
 
 };
+
+export const DEFAULT_COMMANDS = commands;
+
+if (typeof globalThis !== 'undefined') {
+    globalThis.commands = commands;
+}
+if (typeof window !== 'undefined') {
+    window.commands = commands;
+}
